@@ -1,31 +1,35 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import CommentList from './CommentList';
 
 class Article extends Component {
 
-    constructor() {
-        super()
-        this.state = {
-            isOpen: false
-        }
-    }
+  constructor() {
+    super();
+    this.state = {
+      isOpen: false
+    };
+  }
 
-    render() {
-        const {article} = this.props
-        const {isOpen} = this.state
-        const body = isOpen ? <section>{article.text}</section> : null
-        return (
-            <div>
-                <h3 onClick={this.handleClick}>{article.title}</h3>
-                {body}
-            </div>
-        )
-    }
+  render() {
+    const {article} = this.props;
+    const {isOpen} = this.state;
 
-    handleClick = (ev) => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
-    }
+    const body = isOpen ? <section>{article.text}</section> : null;
+    const comments = (article.comments && isOpen) ? <CommentList comments={article.comments}/> : null;
+    return (
+      <div>
+        <h3 onClick={this.handleClick}>{article.title}</h3>
+        {body}
+        {comments}
+      </div>
+    );
+  }
+
+  handleClick = (ev) => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
 }
 
-export default Article
+export default Article;
