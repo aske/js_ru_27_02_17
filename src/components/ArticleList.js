@@ -1,35 +1,30 @@
-import React, {PropTypes, Component} from 'react'
-import Article from './Article'
+import React, {PropTypes, Component} from 'react';
+import Article from './Article';
+import toggleOpenSingle from '../decorators/toggleOpenSingle';
 
-export default class ArticleList extends Component {
-    state = {
-        openArticleId: null
-    }
-
+class ArticleList extends Component {
     render() {
-        const {articles} = this.props
+        const { articles,
+                toggleOpen: toggleOpenArticle,
+                openItemId: openArticleId } = this.props;
 
         const articleComponents = articles.map(article => <li key={article.id}>
             <Article article={article}
-                     isOpen={article.id === this.state.openArticleId}
-                     toggleOpen={this.toggleOpenArticle(article.id)}
+                     isOpen={article.id === openArticleId}
+                     toggleOpen={toggleOpenArticle(article.id)}
             />
-        </li>)
+        </li>);
 
         return (
             <ul>
                 {articleComponents}
             </ul>
-        )
-    }
-
-    toggleOpenArticle = openArticleId => ev => {
-        this.setState({
-            openArticleId
-        })
+        );
     }
 }
 
 ArticleList.propTypes = {
     articles: PropTypes.array.isRequired
-}
+};
+
+export default toggleOpenSingle(ArticleList);
