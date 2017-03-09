@@ -24,6 +24,7 @@ class ArticleList extends Component {
 }
 
 ArticleList.propTypes = {
+    //вот сюда еще и из декоратора данные приходят
     articles: PropTypes.array.isRequired
 };
 
