@@ -1,8 +1,10 @@
-import React, { Component, PropTypes } from 'react'
-import ArticleList from './ArticleList/index'
-import Chart from './Chart'
-import Select from 'react-select'
-import 'react-select/dist/react-select.css'
+import React, { Component, PropTypes } from 'react';
+import ArticleList from './ArticleList/index';
+import Chart from './Chart';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
+import DayRangePicker from './DayRangePicker';
 
 class App extends Component {
     static propTypes = {
@@ -15,31 +17,32 @@ class App extends Component {
     }
 
     render() {
-        const { articles } = this.props
+        const { articles } = this.props;
         const options = articles.map(article => ({
             label: article.title,
             value: article.id
-        }))
+        }));
         return (
             <div>
-                Enter your name: <input type="text" value={this.state.text} onChange={this.handleTextChange}/>
-                <Select options = {options} value={this.state.selected} onChange = {this.handleSelectChange} multi/>
-                <ArticleList articles={this.props.articles}/>
-                <Chart articles={this.props.articles}/>
+              <DayRangePicker />
+              Enter your name: <input type="text" value={this.state.text} onChange={this.handleTextChange}/>
+              <Select options = {options} value={this.state.selected} onChange = {this.handleSelectChange} multi/>
+              <ArticleList articles={this.props.articles}/>
+              <Chart articles={this.props.articles}/>
             </div>
-        )
+        );
     }
 
     handleSelectChange = selected => {
-        this.setState({ selected })
+        this.setState({ selected });
     }
 
     handleTextChange = ev => {
-        if (ev.target.value.length > 10) return
+        if (ev.target.value.length > 10) return;
 
         this.setState({
             text: ev.target.value
-        })
+        });
     }
 }
 
