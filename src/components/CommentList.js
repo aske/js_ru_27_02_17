@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
+import Loader from './Loader';
+import { connect } from 'react-redux';
+import { loadCommentsByArticleId } from '../AC';
 
 class CommentList extends Component {
 
@@ -11,6 +14,12 @@ class CommentList extends Component {
 
     componentDidUpdate() {
         this.size = this.container.getBoundingClientRect()
+    }
+
+    componentWillReceiveProps({isOpen, article, loadingComments, loaded, loadCommentsByArticleId}) {
+        if (!this.props.isOpen && isOpen && !loadingComments && !loaded) {
+            loadCommentsByArticleId(article.id);
+        }
     }
 
     render() {
@@ -32,8 +41,10 @@ class CommentList extends Component {
     }
 
     getBody() {
-        const {article, isOpen} = this.props
-        if (!isOpen) return null
+        const {article, isOpen, loadingComments} = this.props
+        if (!isOpen || typeof loadingComments === 'undefined') return null
+
+        if (loadingComments) return <Loader />;
 
         if (!article.comments || !article.comments.length) {
             return <div>
@@ -56,4 +67,11 @@ class CommentList extends Component {
     }
 }
 
-export default toggleOpen(CommentList)
+const mapStateToProps = (state, ownProps) => {
+    return {
+        loadingComments: state.comments.getIn(['loadInfo', ownProps.article.id, 'loading']),
+        loaded: state.comments.getIn(['loadInfo', ownProps.article.id, 'loaded'])
+    };
+};
+
+export default connect(mapStateToProps, { loadCommentsByArticleId })(toggleOpen(CommentList));
