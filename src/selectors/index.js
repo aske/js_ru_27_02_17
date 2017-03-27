@@ -4,8 +4,15 @@ export const getArticles = state => state.articles.entities
 export const getFilters = state => state.filters
 export const getComments = state => state.comments.entities
 export const getId = (state, props) => props.id
+export const getMatchId = (state, props) => props.match.params.id;
 
 export const filteredArticlesSelector = createSelector(getArticles, getFilters, getFilteredArticles)
+
+export const articleByIdSelector = createSelector(getArticles, getMatchId, getArticleById);
+
+function getArticleById(articles, id) {
+    return articles.get(id);
+}
 
 export const createFindCommentSelector = () => createSelector(getComments, getId,
     (comments, id) => {

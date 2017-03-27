@@ -7,6 +7,7 @@ import Filters from './Filters/index'
 import Counter from './Counter'
 import Menu, {MenuItem} from './Menu/index'
 import {loadAllArticles} from '../AC'
+import PaginatedComments from './PaginatedComments';
 
 class App extends Component {
     static propTypes = {
@@ -29,11 +30,13 @@ class App extends Component {
                         <MenuItem path="/counter"/>
                         <MenuItem path="/filters"/>
                         <MenuItem path="/articles"/>
+                        <MenuItem path="/comments/1"/>
                     </Menu>
                     <Switch>
                         <Route path="/counter" component={Counter} exact />
                         <Route path="/filters" component={Filters} />
                         <Route path="/articles" component={ArticlesPage} />
+                        <Route path="/comments" component={PaginatedComments} />
                         <Route path="*" component={NotFound} />
                     </Switch>
                 </div>
