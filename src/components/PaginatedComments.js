@@ -42,6 +42,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const ConnectedComments = connect(mapStateToProps, {loadPageComments})(Comments);
 
+//лучше не создавать несколько компонентов в одном файле
 class PaginatedComments extends Component {
     static propTypes = {
 
@@ -49,6 +50,7 @@ class PaginatedComments extends Component {
 
     render() {
         const {match} = this.props;
+        //назови :page, id не логично
         return (
             <div>
               <Route path={`${match.url}/:id`} component={ConnectedComments} />
