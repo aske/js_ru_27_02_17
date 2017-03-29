@@ -93,6 +93,7 @@ export function loadArticleById(id) {
     }
 }
 
+//опять же, не называй id
 export function loadPageComments(id) {
     return (dispatch) => {
         dispatch({
