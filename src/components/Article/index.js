@@ -28,7 +28,8 @@ class Article extends Component {
     }
 
     static contextTypes = {
-        user: PropTypes.string
+        user: PropTypes.string,
+        translations: PropTypes.objectOf(PropTypes.string)
     }
 
     render() {
@@ -46,7 +47,7 @@ class Article extends Component {
         return (
             <div>
                 <h3 onClick={toggleOpen}>{article.title}</h3>
-                <a href="#" onClick={this.handleDelete}>delete me</a>
+                <a href="#" onClick={this.handleDelete}>{this.context.translations.deleteMe}</a>
                 <CSSTransition
                     transitionName="article"
                     transitionEnterTimeout={500}

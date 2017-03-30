@@ -16,7 +16,23 @@ class App extends Component {
     };
 
     static childContextTypes = {
-        user: PropTypes.string
+        user: PropTypes.string,
+        translations: PropTypes.objectOf(PropTypes.string)
+    }
+
+    translations = {
+        en: {
+            deleteMe: 'delete me',
+            showComments: 'show comments',
+            hideComments: 'hide comments',
+            userLabel: 'user'
+        },
+        ru: {
+            deleteMe: 'удалить',
+            showComments: 'показать комментарии',
+            hideComments: 'скрыть комментарии',
+            userLabel: 'пользователь'
+        }
     }
 
     state = {
@@ -25,7 +41,8 @@ class App extends Component {
 
     getChildContext() {
         return {
-            user: this.state.text
+            user: this.state.text,
+            translations: this.translations.ru
         }
     }
 

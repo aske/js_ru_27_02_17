@@ -10,6 +10,7 @@ import './style.css'
 class ArticleList extends Component {
     static contextTypes = {
         user: PropTypes.string
+        // translations: PropTypes.objectOf(PropTypes.string)
     }
 
     render() {
